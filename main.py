@@ -36,17 +36,17 @@ def get_google_suggestions(keyword):
     else:
         return None, None
 
-# Load the Excel file
+
 workbook = openpyxl.load_workbook(excel_file_path)
 
 # Get the current day
 current_day = datetime.now().strftime("%A")
 
-# Check if the current day's sheet exists in the workbook
+
 if current_day in workbook.sheetnames:
     worksheet = workbook[current_day]
 
-    # Create lists to store the longest and shortest suggestions
+   
     longest_suggestions = []
     shortest_suggestions = []
 
@@ -58,7 +58,7 @@ if current_day in workbook.sheetnames:
             longest_suggestions.append(long_suggestion)
             shortest_suggestions.append(short_suggestion)
 
-    # Add the longest and shortest suggestions to the Excel file
+    
     for idx, row in enumerate(worksheet.iter_rows(min_row=2, max_row=worksheet.max_row, min_col=3, max_col=4)):
         row[0].value = longest_suggestions[idx]
         row[1].value = shortest_suggestions[idx]
@@ -66,8 +66,8 @@ if current_day in workbook.sheetnames:
     # Save the updated Excel file
     workbook.save(excel_file_path)
 
-    # Close the workbook
+   
     workbook.close()
 
-# Close the browser
+
 driver.quit()
