@@ -66,5 +66,8 @@ if current_day in workbook.sheetnames:
     # Save the updated Excel file
     workbook.save(excel_file_path)
 
+    # Close the workbook
+    workbook.close()
+
 # Close the browser
 driver.quit()
