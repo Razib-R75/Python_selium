@@ -1,5 +1,5 @@
 import openpyxl
-import pandas as pd
+import os
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -8,10 +8,13 @@ from selenium.webdriver.support import expected_conditions as EC
 from datetime import datetime
 
 # Define the path to your Excel file
-excel_file_path = "/Users/badrulalam/work/python-selenium-project/Excel.xlsx"
+excel_file_path = r"D:\unity\SpaceR\Python_selium\Excel.xlsx"
 
 # Define a function to get Google search suggestions for a given keyword
 def get_google_suggestions(keyword):
+    firefox_driver_path = r"C:\Users\razib\Downloads\geckodriver-v0.33.0-win64\geckodriver.exe"
+
+    os.environ["PATH"] += os.pathsep + firefox_driver_path
     driver = webdriver.Firefox()
     driver.get("https://www.google.com")
     search_box = driver.find_element(By.NAME, "q")
@@ -19,7 +22,7 @@ def get_google_suggestions(keyword):
     search_box.send_keys(keyword)
     
     wait = WebDriverWait(driver, 10)
-    wait.until(EC.presence_of_element_located((By.XPATH, "//ul[@role='listbox']/li[@role='presentation']"))
+    wait.until(EC.presence_of_element_located((By.XPATH, "//ul[@role='listbox']/li[@role='presentation']")))
 
     suggestions = driver.find_elements(By.XPATH, "//ul[@role='listbox']/li[@role='presentation']")
     suggestion_texts = [suggestion.text for suggestion in suggestions]
